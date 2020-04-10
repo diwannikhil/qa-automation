@@ -1,8 +1,9 @@
 /* globals gauge*/
 "use strict";
-const { openBrowser,write, closeBrowser, goto, press, screenshot, text, focus, textBox, toRightOf } = require('taiko');
+const { openBrowser,write, click, evaluate, waitFor, closeBrowser, goto, into, link, press, screenshot, text, focus, textBox, _selectors, toRightOf } = require('taiko');
 const assert = require("assert");
 const headless = process.env.headless_chrome.toLowerCase() === 'true';
+
 
 beforeSuite(async () => {
     await openBrowser({ headless: headless })
@@ -26,6 +27,43 @@ step("Search for <query>", async (query) => {
     await press('Enter');
 });
 
+
+step("goto page <arg0>", async function(arg0) {
+    goto(arg0);
+    await waitFor("3000"); 
+});
+
+step("click link <arg0>", async function(arg0) {
+    //await click(link(arg0));
+    await waitFor("3000");
+    await evaluate(link(arg0), ele => ele.click());
+});
+
+step("assert text <content> exists on the page", async function(content) {
+	assert.ok(await text(content).exists());
+});
 step("Page contains <content>", async (content) => {
     assert.ok(await text(content).exists());
+});
+
+step("click <arg0>", async function(arg0) {
+    await waitFor("3000");
+    await click(arg0);
+});
+
+step("click link to right of <arg0>", async function(arg0) {
+    await click(link(toRightOf(_selectors.getElement(arg0))));
+});
+
+step("Enter <arg0> as <arg1>", async function(arg0, arg1) {
+    //await write(arg0, into(await inputField({"placeHolder":arg1})));
+    await focus(textBox(arg1))
+    //await waitFor("5000");
+    await write(arg0);
+});
+
+step("click <arg0> below <arg1>", async function(arg0, arg1) {
+    await waitFor("3000");
+    await click(link(a0, below(a1)), {'waitForEvents' : ['firstMeaningfulPaint']});
+    //await click(arg0);
 });
