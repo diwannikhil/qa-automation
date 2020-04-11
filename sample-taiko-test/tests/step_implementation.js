@@ -34,7 +34,6 @@ step("goto page <arg0>", async function(arg0) {
 });
 
 step("click link <arg0>", async function(arg0) {
-    //await click(link(arg0));
     await waitFor("3000");
     await evaluate(link(arg0), ele => ele.click());
 });
@@ -64,6 +63,5 @@ step("Enter <arg0> as <arg1>", async function(arg0, arg1) {
 
 step("click <arg0> below <arg1>", async function(arg0, arg1) {
     await waitFor("3000");
-    await click(link(a0, below(a1)), {'waitForEvents' : ['firstMeaningfulPaint']});
-    //await click(arg0);
+    await click(link(args0, below(args1)), {'waitForEvents' : ['firstMeaningfulPaint']});
 });
