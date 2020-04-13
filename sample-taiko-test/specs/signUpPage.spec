@@ -1,5 +1,5 @@
-# User Sign up page on VCA QA
-This is to sign up a new user on VCA QA page.
+# User Sign up page on IWC QA
+This is to sign up a new user on IWC QA page.
 
 ## New User sign up
 * goto page "https://qa-pub-iwc.akqa.technology/us/en/home.html"
@@ -10,6 +10,6 @@ This is to sign up a new user on VCA QA page.
 * Enter "Test12345" as "Confirm password"
 * Enter "Test" as "First Name"
 * Enter "User" as "Last Name"
-* click "Register" below "Read privacy policy"
+* click button "Register"
 * assert text "PLEASE CONFIRM YOUR EMAIL" exists on the page
 * assert text "Thank you for registering." exists on the page
