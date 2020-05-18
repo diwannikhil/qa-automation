@@ -14,11 +14,6 @@ afterSuite(async () => {
     await closeBrowser();
 });
 
-gauge.customScreenshotWriter = async function () {
-    const screenshotFilePath = path.join(process.env['gauge_screenshots_dir'], `screenshot-${process.hrtime.bigint()}.png`);
-    await screenshot({ path: screenshotFilePath });
-    return path.basename(screenshotFilePath);
-};
 
 step("Goto getgauge github page", async () => {
     await goto('https://github.com/getgauge');
