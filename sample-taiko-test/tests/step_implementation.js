@@ -6,7 +6,7 @@ const headless = process.env.headless_chrome.toLowerCase() == 'true';
 
 
 beforeSuite(async () => {
-    await openBrowser({ headless: headless })
+    await openBrowser({args:['--no-sandbox', '--disable-setuid-sandbox'], headless: headless })
     //await openBrowser()
 });
 
@@ -14,9 +14,6 @@ afterSuite(async () => {
     await closeBrowser();
 });
 
-gauge.screenshotFn = async function() {
-    return await screenshot({ encoding: 'base64' });
-};
 
 step("Goto getgauge github page", async () => {
     await goto('https://github.com/getgauge');
