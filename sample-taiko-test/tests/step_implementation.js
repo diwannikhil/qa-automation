@@ -1,19 +1,19 @@
 /* globals gauge*/
 "use strict";
-const { openBrowser,write, click, below, evaluate, waitFor, closeBrowser, goto, near, into, link, button, press, screenshot, text, focus, textBox, _selectors, toRightOf, screencast } = require('taiko');
+const { openBrowser,write, click, below, evaluate, waitFor, closeBrowser, goto, near, above, into, link, button, press, screenshot, text, focus, textBox, _selectors, toRightOf, screencast } = require('taiko');
 const assert = require("assert");
 const headless = process.env.headless_chrome.toLowerCase() == 'true';
 
 
 beforeSuite(async () => {
     await openBrowser({args:['--no-sandbox', '--disable-setuid-sandbox'], headless: headless })
-    const outputFile = process.env.recording_path.concat("output.gif")
-    await screencast.startScreencast(outputFile);
+    //const outputFile = process.env.recording_path.concat("output.gif")
+    //await screencast.startScreencast(outputFile);
     //await openBrowser()
 });
 
 afterSuite(async () => {
-    await screencast.stopScreencast();
+    //await screencast.stopScreencast();
     await closeBrowser();
 });
 
@@ -85,4 +85,14 @@ step("click <arg0> near link <arg1>", async function(arg0, arg1) {
 step("click button <arg0>", async function(arg0) {
     await button(arg0).exists();
     await click(button(arg0));
+});
+
+step("Click profile icon", async function() {
+    await waitFor(5000)
+    await click(link({ title: "Profile" }));
+});
+
+step("Enter <arg0> above <arg1>", async function(arg0, arg1) {
+    await focus(textBox(above(arg1)))
+    await write(arg0);
 });
