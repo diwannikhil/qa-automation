@@ -5,9 +5,10 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'npm install @getgauge/cli'
+                sh 'export PATH=$PATH:/usr/local/bin/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/nikhil.diwan/lib/node_modules/taiko/bin:/usr/local/bin/bin:/usr/local/Cellar/gauge/1.0.8/bin:/users/nikhil.diwan/node_modules/taiko/bin'
+                sh 'cd sample-taiko-test'
                 sh 'npm install'
-                sh 'gauge run specs'
+                sh 'gauge run --env='ci' specs'
             }
         }
     }

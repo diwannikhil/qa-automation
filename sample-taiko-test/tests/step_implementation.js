@@ -1,16 +1,19 @@
 /* globals gauge*/
 "use strict";
-const { openBrowser,write, click, below, evaluate, waitFor, closeBrowser, goto, near, into, link, button, press, screenshot, text, focus, textBox, _selectors, toRightOf } = require('taiko');
+const { openBrowser,write, click, below, evaluate, waitFor, closeBrowser, goto, near, into, link, button, press, screenshot, text, focus, textBox, _selectors, toRightOf, screencast } = require('taiko');
 const assert = require("assert");
 const headless = process.env.headless_chrome.toLowerCase() == 'true';
 
 
 beforeSuite(async () => {
     await openBrowser({args:['--no-sandbox', '--disable-setuid-sandbox'], headless: headless })
+    const outputFile = process.env.recording_path.concat("output.gif")
+    await screencast.startScreencast(outputFile);
     //await openBrowser()
 });
 
 afterSuite(async () => {
+    await screencast.stopScreencast();
     await closeBrowser();
 });
 
@@ -33,7 +36,9 @@ step("goto page <arg0>", async function(arg0) {
 
 step("click link <arg0>", async function(arg0) {
     await waitFor("1000");
-    await evaluate(link(arg0), ele => ele.click());
+    //await focus(link(arg0))
+    //await evaluate(link(arg0), ele => ele.click());
+    await click(link(arg0));
 });
 
 step("assert text <content> exists on the page", async function(content) {
@@ -49,7 +54,8 @@ step("click <arg0>", async function(arg0) {
 });
 
 step("click link to right of <arg0>", async function(arg0) {
-    await click(link(toRightOf(_selectors.getElement(arg0))));
+    //await click(link("Profile", toRightOf(arg0)))
+    await click(link(toRightOf(arg0)));
 });
 
 step("Enter <arg0> as <arg1>", async function(arg0, arg1) {
